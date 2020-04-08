@@ -4,11 +4,12 @@ import { Form, Icon, Input, Button, Select } from 'antd';
 import './styles.scss';
 import { Link } from 'react-router-dom';
 import { FormComponentProps } from 'antd/lib/form';
+import { ISignUp } from "../../../types";
 
 const { Option } = Select;
 
 interface ISignUpFormProps extends FormComponentProps {
-    handleSubmit(values: any): void;
+    handleSubmit(values: ISignUp): void;
     handleError(error: any): void;
 }
 
@@ -22,6 +23,15 @@ export default Form.create<ISignUpFormProps>()(function SignUpForm(props: ISignU
             props.handleSubmit(values);
         });
     }
+
+    function compareToFirstPassword (rule: any, value: string, callback: Function)  {
+        const { form } = props;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('Two passwords that you enter is inconsistent!');
+        } else {
+            callback();
+        }
+    };
 
     return (
         <Form onSubmit={onSubmit} className="signup-form" layout="horizontal">
@@ -82,7 +92,8 @@ export default Form.create<ISignUpFormProps>()(function SignUpForm(props: ISignU
             </Form.Item>
             <Form.Item>
                 {props.form.getFieldDecorator('confirmPassword', {
-                    rules: [{ required: true, message: 'Please confirm your Password!' }],
+                    rules: [{ required: true, message: 'Please confirm your Password!' },
+                            { validator: compareToFirstPassword }],
                 })(
                     <Input
                         prefix={<Icon type="lock" theme="filled" style={{ color: 'rgba(0,0,0,.25)' }} />}

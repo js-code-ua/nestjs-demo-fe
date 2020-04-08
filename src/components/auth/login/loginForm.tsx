@@ -4,10 +4,10 @@ import { FormComponentProps } from 'antd/es/form';
 
 import './styles.scss';
 import { Link } from 'react-router-dom';
-import { ILoginArguments } from '../../../types/handlers/ILoginArguments';
+import { ILogin } from '../../../types';
 
 interface ILoginFormProps extends FormComponentProps {
-    handleSubmit(values: ILoginArguments): void,
+    handleSubmit(values: ILogin): void,
     handleError(error: any): void,
 }
 

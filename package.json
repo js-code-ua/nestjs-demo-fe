@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^3.26.9",
+    "axios": "^0.19.2",
     "connected-react-router": "^6.6.1",
     "history": "^4.10.1",
     "less": "^3.10.3",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@types/antd": "^1.0.0",
+    "@types/axios": "^0.14.0",
     "@types/jest": "24.0.18",
     "@types/lodash": "^4.14.149",
     "@types/node": "12.7.5",

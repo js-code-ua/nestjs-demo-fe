@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { Router, Route, Switch, RouteProps } from 'react-router-dom';
 import { history } from '../redux/store';
 import Fallback from '../components/common/fallback';
-import { IRootReducer } from '../redux/reducers/state';
+import { IRootState } from '../redux/reducers/state';
 import { IAuth } from '../types/auth';
 import 'antd/dist/antd.css';
 
 const HomePage = React.lazy(() => import('../pages/home'));
 const LoginPage = React.lazy(() => import('../pages/auth/login'));
 const SignUpPage = React.lazy(() => import('../pages/auth/signup'));
+const SignUpSuccessPage = React.lazy(() => import('../pages/auth/signUpSuccess'));
+
 
 interface IMainRouterProps extends RouteProps {
     auth: IAuth,
@@ -26,10 +28,11 @@ function MainRouter(props: IMainRouterProps) {
                                 <Route exact path="/" component={HomePage} />
                             )
                             : (
-                                <Fragment>
+                                <>
                                     <Route exact path="/" component={LoginPage} />
                                     <Route exact path="/signup" component={SignUpPage} />
-                                </Fragment>
+                                    <Route exact path="/signup/success" component={SignUpSuccessPage} />
+                                </>
                             )
                     }
                 </Switch>
@@ -38,7 +41,7 @@ function MainRouter(props: IMainRouterProps) {
     );
 }
 
-const mapStateToProps = (state: IRootReducer): IMainRouterProps => ({
+const mapStateToProps = (state: IRootState): IMainRouterProps => ({
     auth: state.auth,
 });
 
